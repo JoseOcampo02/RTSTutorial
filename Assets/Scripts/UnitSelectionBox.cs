@@ -38,8 +38,8 @@ public class UnitSelectionBox : MonoBehaviour
         {
             if (boxVisual.rect.width > 0 || boxVisual.rect.height > 0)
             {
-                SelectUnits();
                 UnitSelectionManager.Instance.DeselectAll();
+                SelectUnits();
             }
 
             endPosition = Input.mousePosition;
