@@ -10,4 +10,9 @@ public class Unit : MonoBehaviour
         UnitSelectionManager.Instance.allUnitsList.Add(gameObject);
     }
 
+    private void OnDestroy()
+    {
+        UnitSelectionManager.Instance.allUnitsList.Remove(gameObject);
+    }
+
 }
