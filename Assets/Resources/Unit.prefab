@@ -24,7 +24,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6686691692057886357
 Transform:
   m_ObjectHideFlags: 0
@@ -151,6 +151,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 64
+  isCommandedToMove: 0
 --- !u!114 &343656811170212593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +177,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetToAttack: {fileID: 0}
+  idleStateMaterial: {fileID: 2100000, guid: 9faf107b29bc5714c9e881c9047f01fb, type: 2}
+  followStateMaterial: {fileID: 2100000, guid: ef8132529c47fbe42839296bf5b884ef, type: 2}
+  attackStateMaterial: {fileID: 2100000, guid: 32f81d91b5ea3804c93aa9a629eaa8fe, type: 2}
 --- !u!95 &7673836974357873602
 Animator:
   serializedVersion: 5

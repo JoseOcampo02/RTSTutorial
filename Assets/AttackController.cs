@@ -6,6 +6,10 @@ public class AttackController : MonoBehaviour
 {
     public Transform targetToAttack;
 
+    public Material idleStateMaterial;
+    public Material followStateMaterial;
+    public Material attackStateMaterial;
+
     // For when enemies enter friendly unit detection range.
     // Automatically responds without explicit user commands.
     private void OnTriggerEnter(Collider other)
@@ -20,6 +24,7 @@ public class AttackController : MonoBehaviour
     {
         if (other.CompareTag("Enemy") && targetToAttack != null)
         {
+            //Debug.Log("targetToAttack set to null");
             targetToAttack = null;
         }
     }
@@ -34,5 +39,35 @@ public class AttackController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetIdleMaterial()
+    {
+        GetComponent<Renderer>().material = idleStateMaterial;
+    }
+
+    public void SetFollowMaterial()
+    {
+        GetComponent<Renderer>().material = followStateMaterial;
+    }
+
+    public void SetAttackMaterial()
+    {
+        GetComponent<Renderer>().material = attackStateMaterial;
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Follow Distance
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, 10f * 0.5f);
+
+        // Attack Distance
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 2f);
+
+        // Stop Attack Distance
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, 3f);
     }
 }
