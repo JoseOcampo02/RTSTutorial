@@ -24,8 +24,6 @@ public class UnitMovement : MonoBehaviour
     {
         isCommandedtoMoveThisLoop = false;
 
-        Debug.Log("isCommandedToMove? " + isCommandedToMove);
-
         // if right click
         if (Input.GetMouseButtonDown(1))
         {
@@ -35,7 +33,7 @@ public class UnitMovement : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
             {
                 // Unit has UnitMovement script enables and is explicitly selected for movement
-                if (UnitSelectionManager.Instance.unitsSelected.Contains(this.transform.gameObject))
+                if (UnitSelectionManager.Instance.unitsSelected.Contains(gameObject))
                 {
                     isCommandedToMove = true;
                     isCommandedtoMoveThisLoop = true;

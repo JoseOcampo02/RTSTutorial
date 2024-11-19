@@ -9,13 +9,14 @@ public class AttackController : MonoBehaviour
     public Material idleStateMaterial;
     public Material followStateMaterial;
     public Material attackStateMaterial;
+    public bool isPlayer;
     public int unitDamage;
 
     // For when enemies enter friendly unit detection range.
     // Automatically responds without explicit user commands.
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") && targetToAttack == null)
+        if (isPlayer && other.CompareTag("Enemy") && targetToAttack == null)
         {
             targetToAttack = other.transform;
             transform.GetComponent<UnitMovement>().enabled = true;
@@ -24,12 +25,12 @@ public class AttackController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy") && targetToAttack != null)
+        if (isPlayer && other.CompareTag("Enemy") && targetToAttack != null)
         {
             //Debug.Log("targetToAttack set to null");
             targetToAttack = null;
 
-            if (transform.GetComponent<UnitMovement>().isCommandedToMove == false && !(transform.GetComponent<UnitSelectionManager>().unitsSelected.Contains(this.transform.gameObject)))
+            if (transform.GetComponent<UnitMovement>().isCommandedToMove == false && !(transform.GetComponent<UnitSelectionManager>().unitsSelected.Contains(gameObject)))
             {
                 transform.GetComponent<UnitMovement>().enabled = false;
             }

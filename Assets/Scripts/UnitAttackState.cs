@@ -9,10 +9,13 @@ public class UnitAttackState : StateMachineBehaviour
     AttackController attackController;
 
     public float stopAttackingDistance = 3f;
+    public float attackRate = 2f;
+    public float attackTimer;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        Debug.Log("Entered attack state!");
         agent = animator.GetComponent<NavMeshAgent>();
         attackController = animator.GetComponent<AttackController>();
         attackController.SetAttackMaterial();
@@ -23,7 +26,7 @@ public class UnitAttackState : StateMachineBehaviour
     {
         if (animator.transform.GetComponent<UnitMovement>().isCommandedToMove == true || attackController.targetToAttack == null)
         {
-            Debug.Log("isCommandedToMove? " + animator.transform.GetComponent<UnitMovement>().isCommandedToMove);
+            // HERE --------------------------------------------------------
             animator.SetBool("isAttacking", false);
         }
         else
@@ -34,8 +37,15 @@ public class UnitAttackState : StateMachineBehaviour
             agent.SetDestination(attackController.targetToAttack.position);
 
             // Actually attack unit
-            //var damageToInflict = attackController.unitDamage;
-            //attackController.targetToAttack.GetComponent<Enemy>().ReceiveDamage(damageToInflict);
+            if (attackTimer <= 0)
+            {
+                Attack();
+                attackTimer = 1f / attackRate;
+            }
+            else
+            {
+                attackTimer -= Time.deltaTime;
+            }
             
 
             // Should unit still attack
@@ -47,6 +57,12 @@ public class UnitAttackState : StateMachineBehaviour
                 animator.SetBool("isAttacking", false); // Move to follow state
             }
         }
+    }
+
+    private void Attack()
+    {
+        var damageToInflict = attackController.unitDamage;
+        bool died = attackController.targetToAttack.GetComponent<Unit>().TakeDamage(damageToInflict);
     }
 
     private void LookAtTarget()
