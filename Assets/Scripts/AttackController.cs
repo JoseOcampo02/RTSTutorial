@@ -18,6 +18,7 @@ public class AttackController : MonoBehaviour
         if (other.CompareTag("Enemy") && targetToAttack == null)
         {
             targetToAttack = other.transform;
+            transform.GetComponent<UnitMovement>().enabled = true;
         }
     }
 
@@ -27,8 +28,15 @@ public class AttackController : MonoBehaviour
         {
             //Debug.Log("targetToAttack set to null");
             targetToAttack = null;
+
+            if (transform.GetComponent<UnitMovement>().isCommandedToMove == false && !(transform.GetComponent<UnitSelectionManager>().unitsSelected.Contains(this.transform.gameObject)))
+            {
+                transform.GetComponent<UnitMovement>().enabled = false;
+            }
         }
     }
+    // Critical checks added above to ensure UnitMovement script is enabled/disabled as necessary
+
 
     // Start is called before the first frame update
     void Start()

@@ -34,9 +34,13 @@ public class UnitMovement : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
             {
-                isCommandedToMove = true;
-                isCommandedtoMoveThisLoop = true;
-                agent.SetDestination(hit.point);
+                // Unit has UnitMovement script enables and is explicitly selected for movement
+                if (UnitSelectionManager.Instance.unitsSelected.Contains(this.transform.gameObject))
+                {
+                    isCommandedToMove = true;
+                    isCommandedtoMoveThisLoop = true;
+                    agent.SetDestination(hit.point);
+                }
             }
 
         }
